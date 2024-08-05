@@ -31,7 +31,7 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         push: true
-        tags: $DOCKER_USER/$DOCKER_REPO:v1
+        tags: "$DOCKER_USER/$DOCKER_REPO:v1"
           
 # - name: Build the Docker image
 # run: docker build --t $DOCKER_USER/DOCKER_REPO:v1 .
