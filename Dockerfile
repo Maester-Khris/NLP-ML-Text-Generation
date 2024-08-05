@@ -7,6 +7,8 @@ COPY models/  /api-flask/models/
 COPY services/  /api-flask/services/
 COPY __init__.py app.py  /api-flask/
 
+RUN apt-get update
+RUN apt-get -y install gcc
 RUN pip3 install --upgrade pip && pip install --no-cache-dir flask Flask-RESTful flasgger bert-extractive-summarizer
 
 EXPOSE 3000
