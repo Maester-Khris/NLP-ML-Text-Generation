@@ -34,7 +34,8 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         push: true
-        tags: "$DOCKER_USER/$DOCKER_REPO:latest"
-          
+        tags: mrkhris/nlp-text-generation:latest"
+
+# tags: "$DOCKER_USER/$DOCKER_REPO:latest"
 # - name: Build the Docker image
 # run: docker build --t $DOCKER_USER/DOCKER_REPO:v1 .
