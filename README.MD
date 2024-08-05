@@ -1,5 +1,5 @@
 # Library
 - flask
 - Flask-RESTful
-- flasgger (swagger ui v12)
+- flasgger (swagger ui v3)
 - bert-extractive-summarizer
