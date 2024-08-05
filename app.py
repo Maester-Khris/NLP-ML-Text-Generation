@@ -1,6 +1,7 @@
 from flask import Flask
 from flasgger import Swagger
-from controllers.api import WelcomeLetsgo, Items
+from controllers.api import WelcomeLetsgo
+from controllers.mlapi import Summarizer
 from flask_restful import Api, Resource
 
 def create_app():
@@ -24,7 +25,7 @@ def create_app():
     swagger = Swagger(app, template=template)
 
     api.add_resource(WelcomeLetsgo, '/')
-    api.add_resource(Items, '/items')
+    api.add_resource(Summarizer, '/summarize')
     
     return app
 
