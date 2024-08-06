@@ -2,11 +2,12 @@ from flask import Blueprint, render_template, jsonify, request, make_response
 from flask_restful import Api, Resource
 from flasgger import swag_from
 from services.summarizer import summarize
+from services.augmenter import insert_context_keywords
 
 
-Class Summarizer(Resource):
-     @swag_from({
-        'tags': ['Transformer BERT summarizer'],
+class Summarizer(Resource):
+    @swag_from({
+        'tags': ['BERT Summarizer'],
         "parameters":[
             {
                 "name": "text",
@@ -52,4 +53,56 @@ Class Summarizer(Resource):
             "input_text_word_count": len(userinput['text'].split()),
             "summarized_text_word_count": len(summarized_text.split()),
             "summarized_text": summarized_text
+        }}
+
+
+class Augmenter(Resource):
+    @swag_from({
+        'tags': ['BERT Augmenter with Next entity prediction and Spacy'],
+        "parameters":[
+            {
+                "name": "user_data",
+                "in": "body",
+                "type": "string",
+                "example":{
+                    "input_text":"Un nuage de fumée juste après l’explosion, le 1er juin 2019. Une déflagration dans une importante usine d’explosifs du centre de la Russie a fait au moins 79 blessés samedi 1er juin... ",
+                    "keywords":["Tech", "Machine learning", "Projet"]
+                },
+                "required": "true",
+                "description": ""
+            },
+        ],
+        "responses":{
+            200:{
+                'description': "Return a text with augmented data that represent context keyword, in a way that the new sentence has a consistent meaning.",
+                'content':{
+                    'application/json':{
+                        "data": {
+                            "augmented_text": "Un nuage de fumée juste après l’explosion, le 1er juin 2019 au cameroun",
+                        }
+                    }
+                }
+            },
+            500:{
+                'description': "Something went wrong during the process.",
+                'content':{
+                    'application/json':{
+                        "message": "check the format of your input data"
+                    }
+                }
+            }
+        }
+    })
+    def post(self):
+        """
+        This endpoint is used to perform data augmentation on a text or sentence content. The user will need to provide a text and a list for keyword considered a context data to add.
+        """
+        userinput = request.get_json()
+
+        # ====== TO update !!!! ==========
+        # the function take a sentence
+        # split the text and apply for each sentence then rejoin
+        summarized_text = insert_context_keywords(userinput['input_text'], userinput['keywords'])
+        return {"task result":{
+            "augmented_text": summarized_text,
         }}
