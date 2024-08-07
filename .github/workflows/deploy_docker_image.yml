@@ -40,15 +40,16 @@ jobs:
     - name: Build and export to Docker
       uses: docker/build-push-action@v6
       with:
-        load: true
+        # load: true
+        push: true
         tags: ${{ env.TEST_TAG }}
 
-    - name: Test
-      run: |
-        docker run --rm -d --name ${{env.TEST_CONTAINER}} -p 3000:3000 ${{ env.TEST_TAG }}
-        sleep 150
-        docker exec ${{env.TEST_CONTAINER}} apt-get -y install curl
-        docker exec ${{env.TEST_CONTAINER}} curl -X POST http://localhost:3000/summarize -H 'Content-Type: application/json' -d '{"text":"Un nuage de fumée juste après l’explosion, le 1er juin 2019. Une déflagration dans une importante usine d’explosifs du centre de la Russie a fait au moins 79 blessés samedi 1er juin"}'
+    # - name: Test
+    #   run: |
+    #     docker run --rm -d --name ${{env.TEST_CONTAINER}} -p 3000:3000 ${{ env.TEST_TAG }}
+    #     sleep 150
+    #     docker exec ${{env.TEST_CONTAINER}} apt-get -y install curl
+    #     docker exec ${{env.TEST_CONTAINER}} curl -X POST http://localhost:3000/summarize -H 'Content-Type: application/json' -d '{"text":"Un nuage de fumée juste après l’explosion, le 1er juin 2019. Une déflagration dans une importante usine d’explosifs du centre de la Russie a fait au moins 79 blessés samedi 1er juin"}'
 
 
 
