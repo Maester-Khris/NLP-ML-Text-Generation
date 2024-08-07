@@ -2,7 +2,7 @@ name: Build and Push Docker Image to Docker Hub
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "test" ]
     paths-ignore:
       - .github/**
 
@@ -10,6 +10,7 @@ env:
   DOCKER_USER: ${{secrets.DOCKER_USER}}
   DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
   DOCKER_REPO: ${{secrets.DOCKER_REPO_NAME}}
+  TEST_TAG: mrkhris/nlp-text-generation:test
 
 jobs:
   build_docker_image:
@@ -17,6 +18,9 @@ jobs:
     steps:
     - name: checkout the repo
       uses: actions/checkout@v3
+
+    - name: docker container test
+      run:  echo 'Started contenairized app integration test'
       
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
@@ -27,11 +31,20 @@ jobs:
         username: ${{ secrets.DOCKER_USER }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build_and_push
+    - name: Build and export to Docker
       uses: docker/build-push-action@v6
       with:
-        push: true
-        tags: mrkhris/nlp-text-generation:latest
+        load: true
+        tags: ${{ env.TEST_TAG }}
+
+    - name: Test
+      run: |
+        docker run --rm ${{ env.TEST_TAG }} -p 3000:3000
+        sleep 20
+        docker exec ${{ env.TEST_TAG }} apt-get -y install curl
+        docker exec ${{ env.TEST_TAG }} curl -I -X POST http://localhost/summarize -H 'Content-Type: application/json' -d '{"text":"Un nuage de fumée juste après l’explosion, le 1er juin 2019. Une déflagration dans une importante usine d’explosifs du centre de la Russie a fait au moins 79 blessés samedi 1er juin"}'
+
+
 
 # tags: "$DOCKER_USER/$DOCKER_REPO:latest"
 # - name: Build the Docker image
