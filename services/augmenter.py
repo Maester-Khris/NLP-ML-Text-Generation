@@ -1,15 +1,15 @@
-# from transformers import BertTokenizer, BertForMaskedLM
-# import torch
-# from sentence_completer import completer
+from transformers import BertTokenizer, BertForMaskedLM
+import torch
+from sentence_completer import completer
 
-# # Load the pre-trained BERT model and tokenizer
-# model_name = "bert-large-uncased"
-# tokenizer = BertTokenizer.from_pretrained(model_name)
-# model = BertForMaskedLM.from_pretrained(model_name)
-# model.eval()  # Set the model to evaluation mode
+# Load the pre-trained BERT model and tokenizer
+model_name = "bert-large-uncased"
+tokenizer = BertTokenizer.from_pretrained(model_name)
+model = BertForMaskedLM.from_pretrained(model_name)
+model.eval()  # Set the model to evaluation mode
 
-# device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-# model.to(device)
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model.to(device)
 
 def insert_context_keywords(sentence, keywords):
     """
@@ -33,7 +33,7 @@ def insert_context_keywords(sentence, keywords):
         # 4. Find a suitable position for the keyword
         #   - We'll choose a random position for simplicity
         #   - You can implement more sophisticated strategies
-        masked_index = torch.randint(1, input_ids.shape[1] - 1, (1,))
+        masked_index = torch.randint(1, input_ids.shape[1], (1,))
 
         # 5. Mask the sentence at the chosen position
         input_ids[0, masked_index] = tokenizer.mask_token_id
@@ -64,9 +64,7 @@ def insert_context_keywords(sentence, keywords):
 
     # 11. Analyze the sentence to add some potential stop word around inserted keyword
     sentence = completer(sentence)
-
-    # return sentence, inserted_keywords
-    return ''
+    return sentence, inserted_keywords
 
 
 # =========== Test code =========

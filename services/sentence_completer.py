@@ -24,7 +24,7 @@ def completer(sentence):
             # Additional logic for location or specific cases
             if  token.ent_type_ in ["GPE","LOC"]:  # Example condition for using 'à' or 'au'
                 if token.pos_ == "PROPN":
-                determiner = "au" # Use 'au' for masculine locations
+                    determiner = "au" # Use 'au' for masculine locations
                 else:
                     determiner = "à" 
             # Insert the determiner before the noun

@@ -98,11 +98,22 @@ class Augmenter(Resource):
         This endpoint is used to perform data augmentation on a text or sentence content. The user will need to provide a text and a list for keyword considered a context data to add.
         """
         userinput = request.get_json()
+        text_sentences= userinput['input_text'].split(".")
+        augmented_sentences = []
+        # apply augmentation
+        for sentence in text_sentences:
+            new_s, keys =insert_context_keywords(sentence.strip(), userinput['keywords'])
+            augmented_sentences.append(new_s)
 
-        # ====== TO update !!!! ==========
-        # the function take a sentence
-        # split the text and apply for each sentence then rejoin
-        summarized_text = insert_context_keywords(userinput['input_text'], userinput['keywords'])
+        # rejoin augmented sentencse
+        new_text = ". ".join(augmented_sentences)
         return {"task result":{
-            "augmented_text": summarized_text,
+            "augmented_text": new_text,
         }}
+        
+        # used as placeholder
+        # return {
+        #     "task result":{
+        #         "augmented_text":"That's it"
+        #     }
+        # }
