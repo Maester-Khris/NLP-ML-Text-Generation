@@ -1,6 +1,6 @@
 from transformers import BertTokenizer, BertForMaskedLM
 import torch
-from sentence_completer import completer
+from .sentence_completer import completer
 
 # Load the pre-trained BERT model and tokenizer
 model_name = "bert-large-uncased"
