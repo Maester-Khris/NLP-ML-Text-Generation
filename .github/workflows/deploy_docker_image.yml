@@ -44,7 +44,7 @@ jobs:
         # push: true
         tags: ${{ env.TEST_TAG }}
 
-    # - name: Test
+    - name: Test summarize and augment
       run: |
         docker run --rm -d --name ${{env.TEST_CONTAINER}} -p 3000:3000 ${{ env.TEST_TAG }}
         sleep 150
