@@ -2,7 +2,7 @@ name: Build and Push Docker Image to Docker Hub
 
 on:
   push:
-    branches: [ "test" ]
+    branches: [ "deploy" ]
     # paths-ignore:
     #   - .github/**
 
@@ -11,7 +11,7 @@ env:
   DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
   DOCKER_REPO: ${{secrets.DOCKER_REPO_NAME}}
   TEST_TAG: mrkhris/nlp-text-generation:test
-  TEST_CONTAINER: nlp_ml
+  DEPLOY_TAG: mrkhris/nlp-text-generation:latest
 
 jobs:
   build_docker_image:
@@ -20,16 +20,12 @@ jobs:
     - name: checkout the repo
       uses: actions/checkout@v3
 
-    - name: docker container test
-      run:  echo 'Started contenairized app integration test'
+    - name: docker container for deployment
+      run:  echo 'Build a Docker for deployment'
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    # - name: Pull image for later use
-    #   run: |
-    #     docker pull ${{ env.TEST_TAG }}
-      
     # ==== use to build new container image ====
     - name: Log in to Docker Hub
       uses: docker/login-action@v3
@@ -40,20 +36,5 @@ jobs:
     - name: Build and export to Docker
       uses: docker/build-push-action@v6
       with:
-        load: true
-        tags: ${{ env.TEST_TAG }}
-
-    - name: Test summarize and augment
-      run: |
-        docker run --rm -d --name ${{env.TEST_CONTAINER}} -p 3000:3000 ${{ env.TEST_TAG }}
-        sleep 180
-        docker exec ${{env.TEST_CONTAINER}} apt-get -y install curl
-        docker exec ${{env.TEST_CONTAINER}} curl -X POST http://localhost:3000/summarize -H 'Content-Type: application/json' -d '{"text":"Un nuage de fumée juste après l’explosion, le 1er juin 2019. Une déflagration dans une importante usine d’explosifs du centre de la Russie a fait au moins 79 blessés samedi 1er juin"}'
-        sleep 60
-        docker exec ${{env.TEST_CONTAINER}} curl -X POST http://localhost:3000/augment -H 'Content-Type: application/json' -d '{"keywords":["Tech", "Machine learning", "Projet"],"input_text":"Un nuage de fumée juste après l’explosion, le 1er juin 2019. Une déflagration dans une importante usine d’explosifs du centre de la Russie a fait au moins 79 blessés samedi 1er juin"}'
-
-
-
-# tags: "$DOCKER_USER/$DOCKER_REPO:latest"
-# - name: Build the Docker image
-# run: docker build --t $DOCKER_USER/DOCKER_REPO:v1 .
+        push: true
+        tags: ${{ env.DEPLOY_TAG }}

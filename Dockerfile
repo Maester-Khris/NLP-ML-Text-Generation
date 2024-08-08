@@ -16,4 +16,8 @@ RUN python -m spacy download fr_core_news_sm
 
 EXPOSE 3000
 
-CMD ["gunicorn", "app:create_app()", "-b", "0.0.0.0:3000", "-w", "4"]
+# ENTRYPOINT [ "python" ]
+
+CMD ["gunicorn", "app:create_app()", "-b", "0.0.0.0:${PORT}", "-w", "4"]
+
+# CMD ["app.py" ]
