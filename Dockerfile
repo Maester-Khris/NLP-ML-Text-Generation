@@ -16,9 +16,9 @@ RUN python -m spacy download fr_core_news_sm
 
 ENV PORT=3000
 
-CMD ["gunicorn", "app:create_app()", "-b", "0.0.0.0:3000", "-w", "3"]
+EXPOSE 3000/tcp
 
-EXPOSE 3000
+CMD ["gunicorn", "app:create_app()", "-b", "0.0.0.0:3000", "-w", "3"]
 
 # ENTRYPOINT [ "python" ]
 # CMD ["app.py" ]
