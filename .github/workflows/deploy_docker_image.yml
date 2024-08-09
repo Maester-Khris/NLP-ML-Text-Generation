@@ -41,7 +41,6 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         load: true
-        push: true
         tags: ${{ env.TEST_TAG }}
 
     - name: Test summarize and augment
