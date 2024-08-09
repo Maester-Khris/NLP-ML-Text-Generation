@@ -14,10 +14,11 @@ RUN apt-get -y install python3-dev
 RUN pip3 install --upgrade pip && pip install --no-cache-dir gunicorn flask Flask-RESTful flasgger torchvision bert-extractive-summarizer
 RUN python -m spacy download fr_core_news_sm
 
+ENV PORT=3000
+
 EXPOSE 3000
 
+CMD ["gunicorn", "app:create_app()", "-b", "0.0.0.0:3000", "-w", "4"]
+
 # ENTRYPOINT [ "python" ]
-
-CMD ["gunicorn", "app:create_app()", "-b", "0.0.0.0:${PORT}", "-w", "4"]
-
 # CMD ["app.py" ]
