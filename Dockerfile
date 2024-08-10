@@ -11,8 +11,8 @@ RUN apt-get update
 RUN apt-get install -y --no-install-recommends gcc g++ python3-dev
 # RUN apt-get -y install gcc
 # RUN apt-get -y install g++
-# RUN apt-get -y install python3-dev
-RUN pip3 install --upgrade pip && pip install --no-cache-dir gunicorn flask Flask-RESTful flasgger torch bert-extractive-summarizer
+# RUN apt-get -y install python3-dev torch
+RUN pip3 install --upgrade pip && pip install --no-cache-dir gunicorn flask Flask-RESTful flasgger bert-extractive-summarizer
 RUN python -m spacy download fr_core_news_sm
 
 EXPOSE 3000
