@@ -52,6 +52,7 @@ jobs:
         # sleep 60
         # docker exec ${{env.TEST_CONTAINER}} curl -X POST http://localhost:3000/augment -H 'Content-Type: application/json' -d '{"keywords":["Tech", "Machine learning", "Projet"],"input_text":"Un nuage de fumée juste après l’explosion, le 1er juin 2019. Une déflagration dans une importante usine d’explosifs du centre de la Russie a fait au moins 79 blessés samedi 1er juin"}'
 
+# added huere
 
 
 # tags: "$DOCKER_USER/$DOCKER_REPO:latest"
