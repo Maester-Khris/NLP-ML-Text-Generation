@@ -1,0 +1,40 @@
+.data-block,
+.operator {
+    min-height: 300px;
+    width: 44%;
+}
+
+.data-block {
+    max-height: 400px;
+}
+
+.operator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+}
+
+.note_editable_section {
+    width: 100%;
+    height: 100%;
+    margin-right: 15px;
+    background-color: lightgray;
+    border-radius: 5px;
+    padding: 10px;
+    resize: none;
+    /* Disable resizing */
+    overflow: auto;
+    border: 1px solid black;
+    text-align: left;
+    white-space: pre-wrap;
+    /* Preserves whitespace and line breaks */
+    resize: none;
+    /* Optional: prevents resizing */
+}
+
+small {
+    font-size: 16px;
+    transform: translateY(-2px);
+    display: inline-block
+}
