@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from flask_blueprint import index_bp, summarizer_bp
+from flask_blueprint import index_bp, summarizer_bp, augmenter_bp
 from flask_restful import Api, Resource
 from flasgger import Swagger
 from controllers.api import WelcomeLetsgo
@@ -37,6 +37,7 @@ def create_app():
     # ===== configuring templates blueprint
     app.register_blueprint(index_bp)
     app.register_blueprint(summarizer_bp)
+    app.register_blueprint(augmenter_bp)
     
     return app
 

@@ -10,7 +10,8 @@ env:
   DOCKER_USER: ${{secrets.DOCKER_USER}}
   DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
   DOCKER_REPO: ${{secrets.DOCKER_REPO_NAME}}
-  TEST_TAG: mrkhris/nlp-text-generation:test
+  #TEST_TAG: mrkhris/nlp-text-generation:test
+  TEST_TAG: mrkhris/text-ninja:1.0
   TEST_CONTAINER: nlp_ml
 
 jobs:

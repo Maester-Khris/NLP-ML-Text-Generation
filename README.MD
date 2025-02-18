@@ -7,3 +7,8 @@
     * bert-large-uncased, we first supposte that pip install bert-extractive-summarizer will also install transform, and the model is available inside
     * add command in docker file to donwload spacy language model: python -m spacy download en_core_web_sm 
 
+# Create a script to ping the app
+RUN echo "* * * * * curl http://localhost:3000" >> /etc/crontabs/root
+
+# Start cron in the foreground
+CMD ["crond", "-f"]

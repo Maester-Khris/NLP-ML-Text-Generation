@@ -131,6 +131,12 @@
                 <i class="ph-fill ph-brain"></i> Test summarizer
             </a>
         </li>
+        <li class="breadcrumb-item {% if request.endpoint == 'augmenter.test_augmenter' %}active{% endif %}" 
+            {% if request.endpoint == 'augmenter.test_augmenter' %}aria-current="page"{% endif %}>
+            <a href="{{ url_for('augmenter.test_augmenter') }}">
+                <i class="ph-fill ph-brain"></i> Test augmenter
+            </a>
+        </li>
         <li class="breadcrumb-item">
           <a href="/apidocs" target="_blank" style="position:absolute;right:10px;">
             <i class="ph-fill ph-arrow-square-out"></i> API documentation
@@ -150,18 +156,19 @@
   {% endif %}
 
   {% if request.endpoint == 'summarizer.test_summarizer' %}
-    <div id="message-box" class="d-flex align-items-center" >
-        <!-- <i class="ph-bold ph-chat-circle-text" style="margin-right:15px;font-size:30px;"></i>-->
-        <i class="ph-bold ph-check-fat" style="margin-right:15px;font-size:30px;color:greenyellow;"></i> 
-        <!-- <i class="ph-bold ph-bug" style="margin-right:15px;font-size:30px;color:red;"></i> -->
+  <div id="message-box" class="d-flex align-items-center" style="background-color: lightcoral;">
+    <!-- <i class="ph-bold ph-chat-circle-text" style="margin-right:15px;font-size:30px;"></i>-->
+    <!-- <i class="ph-bold ph-check-fat" style="margin-right:15px;font-size:30px;color:greenyellow;"></i>  -->
+    <i class="ph-bold ph-bug" style="margin-right:15px;font-size:30px;color:red;"></i>
 
-        <div style="height: 50px;width: 250px;font-size: 18px;">
-            Text summarization has terminated with success... 
-        </div>
-        <div class="d-none" style="height: 50px;min-width: 200px;max-width: 500px;font-size: 18px;">
-            The remote model is not available now due to limitation of our hosting provider. We are working to provide a solution... 
-        </div>
+    <div class="d-none" style="height: 50px;width: 250px;font-size: 18px;">
+      Text summarization has terminated with success...
     </div>
+    <div style="height: 50px;min-width: 200px;max-width: 500px;font-size: 18px;">
+      The remote model is not available now due to limitation of our hosting provider. We are working to provide a
+      solution...
+    </div>
+  </div>
    {% endif %}
 
   {% block scripts %}
