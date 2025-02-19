@@ -8,7 +8,7 @@
     * add command in docker file to donwload spacy language model: python -m spacy download en_core_web_sm 
 
 # Create a script to ping the app
-RUN echo "* * * * * curl http://localhost:3000" >> /etc/crontabs/root
+RUN echo "* * * * * curl http://localhost:10000" >> /etc/crontabs/root
 
 # Start cron in the foreground
 CMD ["crond", "-f"]
